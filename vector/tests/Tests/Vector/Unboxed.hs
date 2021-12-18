@@ -6,7 +6,7 @@ import System.Random (Random)
 
 import Test.Tasty (TestTree, testGroup)
 import Data.Vector.Unboxed.Base (Vector, Unbox)
-import Tests.Vector.Property 
+import Tests.Vector.Property
   ( CommonContext )
 import Tests.Vector.Property
   ( testEnumFunctions

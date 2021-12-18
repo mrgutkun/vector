@@ -221,3 +221,37 @@ test-suite unboxed-test-fno-specialize-O2
 
   if !flag(Wall)
     Ghc-Options: -fno-warn-orphans -fno-warn-missing-signatures
+
+
+test-suite unboxed-test-plain-O2
+  Default-Language: Haskell2010
+  type: exitcode-stdio-1.0
+  Main-Is:  Main.hs
+
+  other-modules: Boilerplater
+                 Tests.Vector.Property
+                 Tests.Vector.Unboxed
+                 Utilities
+
+  hs-source-dirs: tests
+  Build-Depends: base >= 4.5 && < 5, template-haskell, base-orphans >= 0.6, vector,
+                 primitive, random,
+                 QuickCheck >= 2.9 && < 2.15, HUnit, tasty,
+                 tasty-hunit, tasty-quickcheck,
+                 transformers >= 0.2.0.0
+
+  default-extensions: CPP,
+              ScopedTypeVariables,
+              PatternGuards,
+              MultiParamTypeClasses,
+              FlexibleContexts,
+              RankNTypes,
+              TypeSynonymInstances,
+              TypeFamilies,
+              TemplateHaskell
+
+  Ghc-Options: -Wall
+  Ghc-Options: -O2 -threaded
+
+  if !flag(Wall)
+    Ghc-Options: -fno-warn-orphans -fno-warn-missing-signatures
