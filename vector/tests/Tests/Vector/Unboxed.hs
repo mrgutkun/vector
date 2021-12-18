@@ -1,20 +1,29 @@
 {-# LANGUAGE ConstraintKinds #-}
 module Tests.Vector.Unboxed (tests) where
 
-import Test.Tasty
-import qualified Data.Vector.Unboxed
+import Data.Data (Data)
+
+import Test.Tasty (TestTree, testGroup)
+import Data.Vector.Unboxed (Vector)
+import Data.Vector.Unboxed.Base (Unbox)
+import Tests.Vector.Property 
+  ( CommonContext, Random )
 import Tests.Vector.Property
+  ( testUnstream, testSanity
+  , testEnumFunctions, testNumFunctions, testDataFunctions, testBoolFunctions
+  , testTuplyFunctions, testMonoidFunctions, testOrdFunctions, testPolymorphicFunctions
+  )
 
 
 
 testGeneralUnboxedVector
-  :: forall a. (CommonContext a Data.Vector.Unboxed.Vector, Data.Vector.Unboxed.Unbox a, Ord a, Data a)
-  => Data.Vector.Unboxed.Vector a -> [TestTree]
+  :: forall a. (CommonContext a Vector, Unbox a, Ord a, Data a)
+  => Vector a -> [TestTree]
 testGeneralUnboxedVector dummy = concatMap ($ dummy)
   [
     testSanity
   , testPolymorphicFunctions
-  , testOrdFunctions 
+  , testOrdFunctions
   , testTuplyFunctions
   , testMonoidFunctions
   , testDataFunctions
@@ -32,9 +41,9 @@ testBoolUnboxedVector dummy = concatMap ($ dummy)
   ]
 
 testNumericUnboxedVector
-  :: forall a. ( CommonContext a Data.Vector.Unboxed.Vector
-               , Data.Vector.Unboxed.Unbox a, Ord a, Num a, Enum a, Random a, Data a)
-  => Data.Vector.Unboxed.Vector a -> [TestTree]
+  :: forall a. ( CommonContext a Vector
+               , Unbox a, Ord a, Num a, Enum a, Random a, Data a)
+  => Vector a -> [TestTree]
 testNumericUnboxedVector dummy = concatMap ($ dummy)
   [
     testGeneralUnboxedVector
@@ -43,8 +52,8 @@ testNumericUnboxedVector dummy = concatMap ($ dummy)
   ]
 
 testTupleUnboxedVector
-  :: forall a. ( CommonContext a Data.Vector.Unboxed.Vector
-               , Data.Vector.Unboxed.Unbox a, Ord a, Data a) => Data.Vector.Unboxed.Vector a -> [TestTree]
+  :: forall a. ( CommonContext a Vector
+               , Unbox a, Ord a, Data a) => Vector a -> [TestTree]
 testTupleUnboxedVector dummy = concatMap ($ dummy)
   [
     testGeneralUnboxedVector
@@ -52,19 +61,19 @@ testTupleUnboxedVector dummy = concatMap ($ dummy)
 
 tests =
   [ testGroup "()" $
-    testUnitUnboxedVector (undefined :: Data.Vector.Unboxed.Vector ())
+    testUnitUnboxedVector (undefined :: Vector ())
   , testGroup "(Bool)" $
-    testBoolUnboxedVector (undefined :: Data.Vector.Unboxed.Vector Bool)
+    testBoolUnboxedVector (undefined :: Vector Bool)
   , testGroup "(Int)" $
-    testNumericUnboxedVector (undefined :: Data.Vector.Unboxed.Vector Int)
+    testNumericUnboxedVector (undefined :: Vector Int)
   , testGroup "(Float)" $
-    testNumericUnboxedVector (undefined :: Data.Vector.Unboxed.Vector Float)
+    testNumericUnboxedVector (undefined :: Vector Float)
   , testGroup "(Double)" $
-    testNumericUnboxedVector (undefined :: Data.Vector.Unboxed.Vector Double)
+    testNumericUnboxedVector (undefined :: Vector Double)
   , testGroup "(Int,Bool)" $
-    testTupleUnboxedVector (undefined :: Data.Vector.Unboxed.Vector (Int, Bool))
+    testTupleUnboxedVector (undefined :: Vector (Int, Bool))
   , testGroup "(Int,Bool,Int)" $
     testTupleUnboxedVector
-      (undefined :: Data.Vector.Unboxed.Vector (Int, Bool, Int))
-  , testGroup "unstream" $ testUnstream (undefined :: Data.Vector.Unboxed.Vector Int)
+      (undefined :: Vector (Int, Bool, Int))
+  , testGroup "unstream" $ testUnstream (undefined :: Vector Int)
   ]
