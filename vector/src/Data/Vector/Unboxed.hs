@@ -129,13 +129,9 @@ module Data.Vector.Unboxed (
   -- ** Zipping
   zipWith, zipWith3, zipWith4, zipWith5, zipWith6,
   izipWith, izipWith3, izipWith4, izipWith5, izipWith6,
-  zip, zip3, zip4, zip5, zip6,
 
   -- ** Monadic zipping
   zipWithM, izipWithM, zipWithM_, izipWithM_,
-
-  -- ** Unzipping
-  unzip, unzip3, unzip4, unzip5, unzip6,
 
   -- * Working with predicates
 
@@ -201,7 +197,6 @@ module Data.Vector.Unboxed (
 import Data.Vector.Unboxed.Base
 import qualified Data.Vector.Generic as G
 import qualified Data.Vector.Fusion.Bundle as Bundle
-import Data.Vector.Fusion.Util ( delayed_min )
 
 import Control.Monad.ST ( ST )
 import Control.Monad.Primitive
@@ -1920,4 +1915,3 @@ copy = G.copy
 
 
 #define DEFINE_IMMUTABLE
-#include "unbox-tuple-instances"
