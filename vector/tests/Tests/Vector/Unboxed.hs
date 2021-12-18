@@ -25,7 +25,7 @@ testGeneralUnboxedVector dummy = concatMap ($ dummy)
   -- , testPolymorphicFunctions
   -- , testOrdFunctions
   -- , testTuplyFunctions
-  , testMonoidFunctions
+  -- , testMonoidFunctions
   , testDataFunctions
   ]
 
