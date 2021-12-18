@@ -21,7 +21,7 @@ testGeneralUnboxedVector
   => Vector a -> [TestTree]
 testGeneralUnboxedVector dummy = concatMap ($ dummy)
   [
-    testSanity
+    -- testSanity
   -- , testPolymorphicFunctions
   -- , testOrdFunctions
   -- , testTuplyFunctions
