@@ -114,15 +114,8 @@ Library
         Data.Vector.Primitive.Mutable
         Data.Vector.Primitive
 
-        Data.Vector.Storable.Internal
-        Data.Vector.Storable.Mutable
-        Data.Vector.Storable
-
         Data.Vector.Unboxed.Base
         Data.Vector.Unboxed
-
-        Data.Vector.Mutable
-        Data.Vector
 
   Hs-Source-Dirs:
         src
