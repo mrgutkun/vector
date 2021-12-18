@@ -9,15 +9,8 @@ import Data.Vector.Unboxed.Base (Vector, Unbox)
 import Tests.Vector.Property 
   ( CommonContext )
 import Tests.Vector.Property
-  ( testUnstream
-  , testEnumFunctions, testNumFunctions, testBoolFunctions
+  ( testEnumFunctions
   )
-
-
-testBoolUnboxedVector dummy = concatMap ($ dummy)
-  [
-   testBoolFunctions
-  ]
 
 testNumericUnboxedVector
   :: forall a. ( CommonContext a Vector
@@ -25,18 +18,14 @@ testNumericUnboxedVector
   => Vector a -> [TestTree]
 testNumericUnboxedVector dummy = concatMap ($ dummy)
   [
-    testNumFunctions
-  , testEnumFunctions
+   testEnumFunctions
   ]
-
+ 
 tests =
-  [ testGroup "(Bool)" $
-    testBoolUnboxedVector (undefined :: Vector Bool)
-  , testGroup "(Int)" $
+  [ testGroup "(Int)" $ 
     testNumericUnboxedVector (undefined :: Vector Int)
   , testGroup "(Float)" $
     testNumericUnboxedVector (undefined :: Vector Float)
-  , testGroup "(Double)" $
-    testNumericUnboxedVector (undefined :: Vector Double)
-  , testGroup "unstream" $ testUnstream (undefined :: Vector Int)
+  -- , testGroup "(Double)" $
+  --   testNumericUnboxedVector (undefined :: Vector Double)
   ]
