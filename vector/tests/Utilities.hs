@@ -10,6 +10,7 @@ import qualified Data.Vector.Generic as DVG
 import qualified Data.Vector.Primitive as DVP
 import qualified Data.Vector.Storable as DVS
 import qualified Data.Vector.Unboxed as DVU
+import qualified Data.Vector.Unboxed.Base as DVU
 import qualified Data.Vector.Fusion.Bundle as S
 
 import Control.Monad (foldM, foldM_, zipWithM, zipWithM_)

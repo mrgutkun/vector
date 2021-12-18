@@ -57,20 +57,15 @@
 
 module Data.Vector.Unboxed (
   -- * Unboxed vectors
-  Vector(V_UnboxAs), MVector(..), Unbox,
+  Vector(V_UnboxAs),
 
   -- * Conversions
-
   -- ** Lists
-  toList, fromList, fromListN,
+  toList, fromList
 
-  -- ** Deriving via
-  UnboxViaPrim(..),
-  As(..),
-  IsoUnbox(..)
 ) where
 
-import Data.Vector.Unboxed.Base
+import Data.Vector.Unboxed.Base (Vector(..), Unbox)
 import qualified Data.Vector.Generic as G
 import qualified Data.Vector.Fusion.Bundle as Bundle
 
