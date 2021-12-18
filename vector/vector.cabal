@@ -119,7 +119,6 @@ Library
         Data.Vector.Storable
 
         Data.Vector.Unboxed.Base
-        Data.Vector.Unboxed.Mutable
         Data.Vector.Unboxed
 
         Data.Vector.Mutable
