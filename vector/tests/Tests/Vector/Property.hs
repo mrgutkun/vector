@@ -1,27 +1,16 @@
 {-# LANGUAGE ConstraintKinds #-}
 module Tests.Vector.Property
   ( CommonContext
-  , VanillaContext
-  , VectorContext
   , testSanity
   , testPolymorphicFunctions
   , testTuplyFunctions
   , testOrdFunctions
   , testEnumFunctions
   , testMonoidFunctions
-  , testFunctorFunctions
-  , testMonadFunctions
-  , testApplicativeFunctions
-  , testAlternativeFunctions
-  , testSequenceFunctions
   , testBoolFunctions
   , testNumFunctions
-  , testNestedVectorFunctions
   , testDataFunctions
   , testUnstream
-  -- re-exports
-  , Data
-  , Random
   ) where
 
 import Boilerplater
@@ -45,13 +34,10 @@ import Text.Show.Functions ()
 import Data.List
 
 
-import qualified Control.Applicative as Applicative
-import System.Random       (Random)
+import System.Random       (Random) 
 
 import Data.Functor.Identity
 import Control.Monad.Trans.Writer
-
-import Control.Monad.Zip
 
 import Data.Data
 
@@ -711,60 +697,6 @@ testMonoidFunctions _ = $(testProperties
     prop_mappend :: P (v a -> v a -> v a) = mappend `eq` mappend
     prop_mconcat :: P ([v a] -> v a)      = mconcat `eq` mconcat
 
-testFunctorFunctions :: forall a v. (CommonContext a v, Functor v) => v a -> [TestTree]
-{-# INLINE testFunctorFunctions #-}
-testFunctorFunctions _ = $(testProperties
-  [ 'prop_fmap ])
-  where
-    prop_fmap :: P ((a -> a) -> v a -> v a) = fmap `eq` fmap
-
-testMonadFunctions :: forall a v. (CommonContext a v, VectorContext (a, a) v, MonadZip v) => v a -> [TestTree]
-{-# INLINE testMonadFunctions #-}
-testMonadFunctions _ = $(testProperties [ 'prop_return, 'prop_bind
-                                        , 'prop_mzip, 'prop_munzip
-                                        ])
-  where
-    prop_return :: P (a -> v a) = return `eq` return
-    prop_bind   :: P (v a -> (a -> v a) -> v a) = (>>=) `eq` (>>=)
-    prop_mzip   :: P (v a -> v a -> v (a, a)) = mzip `eq` zip
-    prop_munzip :: P (v (a, a) -> (v a, v a)) = munzip `eq` unzip
-
-testSequenceFunctions
-  :: forall a v. ( CommonContext a v
-                 , Model (v (Writer [a] a)) ~ [Writer [a] a]
-                 , V.Vector v (Writer [a] a)
-                 , Arbitrary (v (Writer [a] a))
-                 , Show      (v (Writer [a] a))
-                 , TestData  (v (Writer [a] a))
-                 )
-  => v a -> [TestTree]
-testSequenceFunctions _ = $(testProperties [ 'prop_sequence, 'prop_sequence_
-                                           ])
-  where
-    prop_sequence :: P (v (Writer [a] a) -> Writer [a] (v a))
-      = V.sequence `eq` sequence
-    prop_sequence_ :: P (v (Writer [a] a) -> Writer [a] ())
-      = V.sequence_ `eq` sequence_
-
-testApplicativeFunctions :: forall a v. (CommonContext a v, V.Vector v (a -> a), Applicative.Applicative v) => v a -> [TestTree]
-{-# INLINE testApplicativeFunctions #-}
-testApplicativeFunctions _ = $(testProperties
-  [ 'prop_applicative_pure, 'prop_applicative_appl ])
-  where
-    prop_applicative_pure :: P (a -> v a)
-      = Applicative.pure `eq` Applicative.pure
-    prop_applicative_appl :: [a -> a] -> P (v a -> v a)
-      = \fs -> (Applicative.<*>) (V.fromList fs) `eq` (Applicative.<*>) fs
-
-testAlternativeFunctions :: forall a v. (CommonContext a v, Applicative.Alternative v) => v a -> [TestTree]
-{-# INLINE testAlternativeFunctions #-}
-testAlternativeFunctions _ = $(testProperties
-  [ 'prop_alternative_empty, 'prop_alternative_or ])
-  where
-    prop_alternative_empty :: P (v a) = Applicative.empty `eq` Applicative.empty
-    prop_alternative_or :: P (v a -> v a -> v a)
-      = (Applicative.<|>) `eq` (Applicative.<|>)
-
 testBoolFunctions :: forall v. (CommonContext Bool v) => v Bool -> [TestTree]
 {-# INLINE testBoolFunctions #-}
 testBoolFunctions _ = $(testProperties ['prop_and, 'prop_or])
@@ -778,14 +710,6 @@ testNumFunctions _ = $(testProperties ['prop_sum, 'prop_product])
   where
     prop_sum     :: P (v a -> a) = V.sum `eq` sum
     prop_product :: P (v a -> a) = V.product `eq` product
-
-testNestedVectorFunctions :: forall a v. (CommonContext a v) => v a -> [TestTree]
-{-# INLINE testNestedVectorFunctions #-}
-testNestedVectorFunctions _ = $(testProperties
-  [ 'prop_concat
-  ])
-  where
-    prop_concat :: P ([v a] -> v a) = V.concat `eq` concat
 
 testDataFunctions :: forall a v. (CommonContext a v, Data a, Data (v a)) => v a -> [TestTree]
 {-# INLINE testDataFunctions #-}

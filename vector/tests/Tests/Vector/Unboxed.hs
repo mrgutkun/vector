@@ -2,12 +2,12 @@
 module Tests.Vector.Unboxed (tests) where
 
 import Data.Data (Data)
+import System.Random (Random)
 
 import Test.Tasty (TestTree, testGroup)
-import Data.Vector.Unboxed (Vector)
-import Data.Vector.Unboxed.Base (Unbox)
+import Data.Vector.Unboxed.Base (Vector, Unbox)
 import Tests.Vector.Property 
-  ( CommonContext, Random )
+  ( CommonContext )
 import Tests.Vector.Property
   ( testUnstream, testSanity
   , testEnumFunctions, testNumFunctions, testDataFunctions, testBoolFunctions
