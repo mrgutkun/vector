@@ -13,7 +13,7 @@
 
 module Data.Vector.Unboxed (
   -- * Unboxed vectors
-  Vector(V_UnboxAs),
+  Vector,
 
   -- * Conversions
   -- ** Lists
@@ -21,7 +21,7 @@ module Data.Vector.Unboxed (
 
 ) where
 
-import Data.Vector.Unboxed.Base (Vector(..), Unbox)
+import Data.Vector.Unboxed.Base (Vector, Unbox)
 import qualified Data.Vector.Generic as G
 import qualified Data.Vector.Fusion.Bundle as Bundle
 
