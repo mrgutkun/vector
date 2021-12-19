@@ -28,7 +28,7 @@ module Data.Vector.Unboxed.Base (
   -- UnboxViaPrim(..), As(..), IsoUnbox(..)
 ) where
 
-import qualified Data.Vector.Generic         as G
+import qualified Data.Vector.Generic.Base    as G
 import qualified Data.Vector.Generic.Mutable as M
 
 import qualified Data.Vector.Primitive as P (Vector)

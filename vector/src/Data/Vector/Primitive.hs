@@ -25,7 +25,7 @@ module Data.Vector.Primitive (
   Vector(..)
 ) where
 
-import qualified Data.Vector.Generic           as G (Mutable, Vector(..))
+import qualified Data.Vector.Generic.Base      as G (Mutable, Vector(..))
 import           Data.Vector.Primitive.Mutable ( MVector(..) )
 import           Data.Primitive.ByteArray
 import           Data.Primitive ( Prim, sizeOf )

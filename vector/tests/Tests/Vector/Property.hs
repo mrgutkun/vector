@@ -17,6 +17,7 @@ import Boilerplater (testProperties)
 import Utilities (TestData, Model, EqTest, P(..), eq, (===>))
 
 import Data.Orphans ()
+import qualified Data.Vector.Generic.Base as V
 import qualified Data.Vector.Generic as V
 
 import Test.QuickCheck

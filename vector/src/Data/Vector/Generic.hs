@@ -18,7 +18,7 @@
 
 module Data.Vector.Generic (
   -- * Immutable vectors
-  Vector(..), Mutable,
+  -- Vector(..), Mutable,
 
 
   -- -- ** Enumeration
@@ -40,7 +40,7 @@ module Data.Vector.Generic (
   showsPrec,
 ) where
 
-import           Data.Vector.Generic.Base
+import           Data.Vector.Generic.Base (Vector(..), Mutable)
 
 import qualified Data.Vector.Generic.Mutable as M
 
@@ -50,7 +50,7 @@ import           Data.Vector.Generic.New ( New )
 import qualified Data.Vector.Fusion.Bundle as Bundle
 import           Data.Vector.Fusion.Bundle ( Bundle, inplace )
 import           Data.Vector.Fusion.Stream.Monadic ( Stream )
-import           Data.Vector.Internal.Check
+import           Data.Vector.Internal.Check (check, Checks(Unsafe))
 
 import Control.Monad.ST ( runST )
 import Control.Monad.Primitive
